@@ -1,0 +1,140 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopkeeper Dashboard - Barber Studio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url("360_F_633496108_MIw6cNitWmeQ5yquQ8MT5eUOfkIHn80n.jpg") no-repeat center center/cover;
+      color: rgb(187, 175, 10);
+      text-align: center;
+      padding: 40px;
+    }
+    h1 { margin-top: 50px; }
+    .dashboard {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    .dash-card {
+      background: rgba(255,255,255,0.85);
+      color: #222;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      padding: 40px 40px;
+      min-width: 220px;
+      margin: 10px;
+    }
+    .dash-card h2 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      color: #007bff;
+    }
+    .dash-card .value {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .recent-table {
+      margin: 40px auto 0 auto;
+      background: #fff;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #0002;
+      min-width: 350px;
+      max-width: 600px;
+      overflow-x: auto;
+    }
+    .recent-table th, .recent-table td {
+      padding: 10px 18px;
+      border-bottom: 1px solid #eee;
+    }
+    .recent-table th {
+      background: #007bff;
+      color: #fff;
+    }
+    .recent-table tr:last-child td {
+      border-bottom: none;
+    }
+    .alert {
+      background: #ffeeba;
+      color: #856404;
+      padding: 10px 20px;
+      border-radius: 6px;
+      margin: 20px auto 0 auto;
+      max-width: 400px;
+      font-weight: 600;
+    }
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: #007bff;
+      color: rgb(4, 3, 3);
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    a:hover { background: #0056b3; }
+    .add-btn {
+      background: #28a745;
+      color: #fff !important;
+      margin-right: 10px;
+    }
+    .add-btn:hover { background: #218838; }
+  </style>
+</head>
+<body>
+  <h1>Welcome SIR </h1>
+  <h2>You can manage bookings here.</h2>
+
+  <div class="dashboard">
+    <div class="dash-card">
+      <h2>Total Customers</h2>
+      <div class="value" id="totalCustomers">0</div>
+      <div>All registered customers</div>
+    </div>
+    <div class="dash-card">
+      <h2>Transactions</h2>
+      <div class="value" id="totalTransactions">0</div>
+      <div>All completed transactions</div>
+    </div>
+    <div class="dash-card">
+      <h2>Today's Bookings</h2>
+      <div class="value" id="todaysBookings">0</div>
+      <div>Bookings for today</div>
+    </div>
+    <div class="dash-card">
+      <h2>Total Revenue</h2>
+      <div class="value" id="totalRevenue">₹0</div>
+      <div>All time revenue</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    2 new bookings today!
+  </div>
+
+  <table class="recent-table">
+    <tr><th>Name</th><th>Service</th><th>Date</th><th>Status</th></tr>
+    <tr><td>Rahul</td><td>Haircut</td><td>2025-09-05</td><td>Done</td></tr>
+    <tr><td>Amit</td><td>Shave</td><td>2025-09-05</td><td>Pending</td></tr>
+    <tr><td>Priya</td><td>Beard Trim</td><td>2025-09-04</td><td>Done</td></tr>
+  </table>
+
+  <a href="add_booking.html" class="add-btn">Add Booking</a>
+  <a href="login.html">Logout</a>
+
+  <script>
+    // Dummy data for demo, replace with real data from backend if needed
+    document.getElementById('totalCustomers').textContent = 124; // Example value
+    document.getElementById('totalTransactions').textContent = 87; // Example value
+    document.getElementById('todaysBookings').textContent = 12; // Example value
+    document.getElementById('totalRevenue').textContent = "₹15,000"; // Example value
+  </script>
+</body>
+</html>

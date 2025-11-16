@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Barber Studio</title>
+  <!--
+  Database connection is not done in HTML. 
+  Use PHP backend (like login.php) and include db_connect.php for MySQL connection.
+  Example (in login.php):
+  <?php include 'backend/db_connect.php'; ?>
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url("A stylish barbershop.png") no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-attachment: fixed;
+    }
+    .login-container {
+      background: rgba(0,0,0,0.75);
+      padding: 38px 32px 28px 32px;
+      border-radius: 18px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      width: 340px;
+      text-align: center;
+      color: #cd6815;
+      position: relative;
+      animation: fadeIn 1s;
+    }
+    .login-container h2 {
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .login-container form {
+      margin-top: 10px;
+    }
+    .login-container select,
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 7px;
+      font-size: 15px;
+      outline: none;
+      background: rgba(156, 150, 43, 0.13);
+      color: #070606;
+      transition: background 0.2s;
+    }
+    .login-container input:focus,
+    .login-container select:focus {
+      background: rgba(255,255,255,0.22);
+    }
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      background: linear-gradient(90deg, #28a745 80%, #218838 100%);
+      border: none;
+      border-radius: 7px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 17px;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px #0003;
+      transition: background 0.3s;
+    }
+    .login-container button:focus {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+    .login-container button:hover {
+      background: linear-gradient(90deg, #218838 80%, #28a745 100%);
+    }
+    .signup-link {
+      display: block;
+      margin-top: 20px;
+      color: #28a745;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    .signup-link:hover {
+      color: #c69999;
+    }
+    /* Signup Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.55);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #232323;
+      color: #fff;
+      padding: 34px 28px 22px 28px;
+      border-radius: 16px;
+      width: 340px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 16px #0008;
+      animation: fadeIn 0.5s;
+    }
+    .modal-content h2 {
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .modal-content input, .modal-content select {
+      width: 100%;
+      padding: 11px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 7px;
+      font-size: 15px;
+      outline: none;
+      background: rgba(255,255,255,0.13);
+      color: #0a0404;
+      transition: background 0.2s;
+    }
+    .modal-content input:focus,
+    .modal-content select:focus {
+      background: rgba(255,255,255,0.22);
+    }
+    .modal-content button {
+      width: 80%;
+      padding: 11px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, #50d71fcf 80%, #218838 100%);
+      border: none;
+      border-radius: 7px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+      letter-spacing: 1px;
+    }
+    .modal-content button:hover {
+      background: linear-gradient(90deg, #218838 80%, #28a745 100%);
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px; right: 18px;
+      font-size: 22px;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+    .close-modal:hover {
+      color: #28a745;
+    }
+    .success-msg {
+      background: #d4edda;
+      color: #2d4332;
+      padding: 10px 0;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      display: none;
+    }
+    .error-msg {
+      display: none;
+      background: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 500px) {
+      .login-container, .modal-content { width: 95vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <div id="loginError" class="error-msg" style="display:none;"></div>
+    <form id="loginForm">
+      <select id="role" name="role" required>
+        <option value="">Login as</option>
+        <option value="user">User</option>
+        <option value="shopkeeper">Shopkeeper</option>
+        <option value="admin">Admin</option>
+      </select>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <span class="signup-link" onclick="openSignup()">Don't have an account? <b>Sign Up</b></span>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal" id="signupModal">
+    <div class="modal-content">
+      <button type="submit">Sign Up</button>
+       <h2>Create Account</h2>
+      <div class="success-msg" id="signupSuccess">Sign up successful! You can now log in.</div>
+      <div id="signupError" class="error-msg" style="display:none;"></div>
+      <form id="signupForm">
+        <select id="signupRole" name="role" required>
+          <option value="">Sign up as</option>
+          <option value="user">User</option>
+          <option value="shopkeeper">Shopkeeper</option>
+        </select>
+        <input type="text" id="signupName" placeholder="Full Name" required>
+        <input type="email" id="signupEmail" placeholder="Email" required>
+        <input type="password" id="signupPassword" name="password" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch('backend/login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === 'success') {
+          if (result.role === 'user') {
+            window.location.href = 'indae.html';
+          } else if (result.role === 'shopkeeper') {
+            window.location.href = 'shop_home.html';
+          } else if (result.role === 'admin') {
+            window.location.href = 'admin_home.html';
+          }
+        } else {
+          const errorDiv = document.getElementById('loginError');
+          errorDiv.textContent = result.message;
+          errorDiv.style.display = 'block';
+        }
+      })
+      .catch(error => {
+        const errorDiv = document.getElementById('loginError');
+        errorDiv.textContent = 'An unexpected error occurred.';
+        errorDiv.style.display = 'block';
+      });
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch('backend/signup.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === 'success') {
+          document.getElementById('signupSuccess').style.display = 'block';
+          document.getElementById('signupError').style.display = 'none';
+          setTimeout(closeSignup, 1500);
+        } else {
+          const errorDiv = document.getElementById('signupError');
+          errorDiv.textContent = result.message;
+          errorDiv.style.display = 'block';
+          document.getElementById('signupSuccess').style.display = 'none';
+        }
+      })
+      .catch(error => {
+        const errorDiv = document.getElementById('signupError');
+        errorDiv.textContent = 'An unexpected error occurred.';
+        errorDiv.style.display = 'block';
+      });
+    });
+
+    // Modal Functions
+    function openSignup() {
+      document.getElementById('signupModal').style.display = 'flex';
+      document.getElementById('signupSuccess').style.display = 'none';
+      document.getElementById('signupError').style.display = 'none';
+    }
+    function closeSignup() {
+      document.getElementById('signupModal').style.display = 'none';
+    }
+
+    // Close modal on outside click
+    window.onclick = function(event) {
+      const modal = document.getElementById('signupModal');
+      if (event.target === modal) {
+        closeSignup();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Barber Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-image: url("A stylish barbershop.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    .hero-banner {
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 2s ease-in-out;
+    }
+    .hero-banner h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .hero-banner p {
+      font-size: 1.25rem;
+      font-weight: 300;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section {
+      background-color: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      margin: 40px auto;
+      padding: 40px;
+      max-width: 1100px;
+      border-radius: 12px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .booking-form input,
+    .booking-form select {
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #000;
+    }
+    .booking-form button {
+      padding: 12px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .booking-form button:hover {
+      background-color: #218838;
+    }
+    .slider {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+    .slide-track {
+      display: flex;
+      width: calc(250px * 12); /* 250px slide width * 12 slides */
+      animation: scroll 30s linear infinite;
+    }
+    .slide {
+      width: 250px;
+      margin: 0 10px;
+    }
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+    .slide img:hover {
+      transform: scale(1.05);
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-250px * 6)); } /* scroll 6 slides */
+    }
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #28a745;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.2s;
+    }
+    .chat-button:hover {
+        transform: scale(1.1);
+    }
+    .chat-button::before {
+      content: "💬";
+      font-size: 24px;
+    }
+    .faq-answer {
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align:center;letter-spacing:8px;margin:10px 0; font-weight:700;">CUT</h1>
+
+  <!-- Modern Navigation Bar -->
+  <nav class="backdrop-blur-md bg-black/70 w-full px-8 py-3 flex items-center justify-between sticky top-0 left-0 z-50 shadow-lg">
+    <div class="flex items-center gap-8">
+      <a href="#home" class="flex items-center gap-2 text-2xl font-bold tracking-widest text-white select-none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" class="inline-block align-middle"><circle cx="8" cy="24" r="4" stroke="#28a745" stroke-width="2" fill="#fff"/><circle cx="24" cy="24" r="4" stroke="#28a745" stroke-width="2" fill="#fff"/><path d="M8 24 L24 4" stroke="#28a745" stroke-width="2" stroke-linecap="round"/><path d="M24 24 L8 4" stroke="#28a745" stroke-width="2" stroke-linecap="round"/></svg>
+        CUT
+      </a>
+      <div class="hidden md:flex gap-6 text-white font-semibold text-base">
+        <a href="#services" class="hover:text-green-400 transition">Services</a>
+        <a href="#testimonials" class="hover:text-green-400 transition">Testimonials</a>
+        <a href="#team" class="hover:text-green-400 transition">Our Team</a>
+        <a href="#gallery" class="hover:text-green-400 transition">Gallery</a>
+        <a href="#booking" class="hover:text-green-400 transition">Book Now</a>
+        <a href="#contact" class="hover:text-green-400 transition">Contact</a>
+      </div>
+    </div>
+    <form id="searchBar" class="hidden md:flex items-center gap-2 ml-6">
+      <input type="text" id="searchInput" placeholder="Search..." class="rounded-md px-3 py-1 text-black focus:outline-none" />
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md px-4 py-1 transition">Search</button>
+    </form>
+    <button id="mobileMenuBtn" class="md:hidden text-white text-3xl focus:outline-none ml-2">&#9776;</button>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed top-0 right-0 w-2/3 max-w-xs h-full bg-black/90 backdrop-blur-lg z-50 flex flex-col gap-6 pt-20 px-8 text-white font-semibold text-lg transform translate-x-full transition-transform duration-300">
+    <a href="#services" class="hover:text-green-400 transition">Services</a>
+    <a href="#testimonials" class="hover:text-green-400 transition">Testimonials</a>
+    <a href="#team" class="hover:text-green-400 transition">Our Team</a>
+    <a href="#gallery" class="hover:text-green-400 transition">Gallery</a>
+    <a href="#booking" class="hover:text-green-400 transition">Book Now</a>
+    <a href="#contact" class="hover:text-green-400 transition">Contact</a>
+    <button id="closeMobileMenu" class="absolute top-4 right-6 text-3xl">&times;</button>
+  </div>
+
+  <header class="hero-banner" id="home">
+    <h1>Welcome to Your Premium Grooming Experience</h1>
+    <p>Style. Precision. Confidence.</p>
+  </header>
+
+  <!-- Services Section -->
+  <section class="section" id="services">
+    <h2>Our Services</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-5">
+      <div class="card"><span>✂️</span>Haircut</div>
+      <div class="card"><span>🧔</span>Beard Trim</div>
+      <div class="card"><span>🪒</span>Shave</div>
+      <div class="card"><span>✨</span>Head Shave</div>
+      <div class="card col-span-2 md:col-span-1"><span>🎨</span>Color & Straight</div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section" id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="flex flex-wrap justify-center gap-8">
+      <div class="bg-white/10 rounded-xl p-6 max-w-xs text-center shadow-lg hover:scale-105 transition">
+        <img src="https://i.pravatar.cc/80?img=11" alt="Customer" class="mx-auto rounded-full w-16 h-16 mb-3 border-2 border-green-500">
+        <p class="italic">"Best haircut experience ever! Professional and friendly staff."</p>
+        <div class="text-yellow-400 mt-2">★★★★★</div>
+        <div class="mt-2 font-semibold">Rahul Sharma</div>
+      </div>
+      <div class="bg-white/10 rounded-xl p-6 max-w-xs text-center shadow-lg hover:scale-105 transition">
+        <img src="https://i.pravatar.cc/80?img=12" alt="Customer" class="mx-auto rounded-full w-16 h-16 mb-3 border-2 border-green-500">
+        <p class="italic">"Clean shop, great service, and amazing beard trim!"</p>
+        <div class="text-yellow-400 mt-2">★★★★★</div>
+        <div class="mt-2 font-semibold">Priya Verma</div>
+      </div>
+      <div class="bg-white/10 rounded-xl p-6 max-w-xs text-center shadow-lg hover:scale-105 transition">
+        <img src="https://i.pravatar.cc/80?img=13" alt="Customer" class="mx-auto rounded-full w-16 h-16 mb-3 border-2 border-green-500">
+        <p class="italic">"Highly recommended for modern styles and friendly staff."</p>
+        <div class="text-yellow-400 mt-2">★★★★★</div>
+        <div class="mt-2 font-semibold">Amit Singh</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team/Barbers Section -->
+  <section class="section" id="team">
+    <h2>Meet Our Barbers</h2>
+    <div class="flex flex-wrap justify-center gap-8">
+      <div class="bg-white/10 rounded-xl p-6 max-w-xs text-center shadow-lg hover:scale-105 transition">
+        <img src="https://i.pravatar.cc/100?img=21" alt="Barber" class="mx-auto rounded-full w-20 h-20 mb-3 border-2 border-green-500">
+        <div class="font-bold text-lg">Rohit Kumar</div>
+        <div class="text-green-400">Haircut Specialist</div>
+      </div>
+      <div class="bg-white/10 rounded-xl p-6 max-w-xs text-center shadow-lg hover:scale-105 transition">
+        <img src="https://i.pravatar.cc/100?img=22" alt="Barber" class="mx-auto rounded-full w-20 h-20 mb-3 border-2 border-green-500">
+        <div class="font-bold text-lg">Sunita Sharma</div>
+        <div class="text-green-400">Color & Straight Expert</div>
+      </div>
+      <div class="bg-white/10 rounded-xl p-6 max-w-xs text-center shadow-lg hover:scale-105 transition">
+        <img src="https://i.pravatar.cc/100?img=23" alt="Barber" class="mx-auto rounded-full w-20 h-20 mb-3 border-2 border-green-500">
+        <div class="font-bold text-lg">Aman Singh</div>
+        <div class="text-green-400">Beard & Shave Pro</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="slider-section" id="gallery">
+    <h2>Gallery</h2>
+    <div class="slider">
+      <div class="slide-track">
+        <div class="slide"><img src="2d340786ab3bb9d65dd2e3e953b898c2.jpg" alt="Haircut Style" /></div>
+        <div class="slide"><img src="50+ Best Short Hairc.png" alt="Beard Trim" /></div>
+        <div class="slide"><img src="A stylish barbershop.png" alt="Studio Interior" /></div>
+        <div class="slide"><img src="Hot Lather & Straigh.png" alt="Shave Finish" /></div>
+        <div class="slide"><img src="Top 25 Men's Hairsty.png" alt="Haircut Style" /></div>
+        <div class="slide"><img src="The Ultimate Short H.png" alt="Beard Trim" /></div>
+        <!-- Duplicate for infinite scroll -->
+        <div class="slide"><img src="2d340786ab3bb9d65dd2e3e953b898c2.jpg" alt="Haircut Style" /></div>
+        <div class="slide"><img src="50+ Best Short Hairc.png" alt="Beard Trim" /></div>
+        <div class="slide"><img src="A stylish barbershop.png" alt="Studio Interior" /></div>
+        <div class="slide"><img src="Hot Lather & Straigh.png" alt="Shave Finish" /></div>
+        <div class="slide"><img src="Top 25 Men's Hairsty.png" alt="Haircut Style" /></div>
+        <div class="slide"><img src="The Ultimate Short H.png" alt="Beard Trim" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="section" id="booking">
+    <h2>Book an Appointment</h2>
+    <form class="booking-form max-w-xl mx-auto flex flex-col gap-4">
+      <input type="text" placeholder="Your Name" required />
+      <input type="tel" placeholder="Phone Number" required />
+      <select required>
+        <option value="">Select Service</option>
+        <option>Haircut</option>
+        <option>Beard Trim</option>
+        <option>Shave</option>
+        <option>Head Shave</option>
+        <option>Color and Straight</option>
+      </select>
+      <input type="date" required />
+      <input type="time" required />
+      <button type="submit">Book Now</button>
+    </form>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="max-w-2xl mx-auto">
+      <div class="mb-4">
+        <button class="w-full text-left font-semibold text-lg bg-green-700/20 rounded-lg px-4 py-3 focus:outline-none transition" onclick="toggleFaq(0)">क्या मुझे अपॉइंटमेंट बुक करनी पड़ेगी?</button>
+        <div class="faq-answer hidden px-4 py-2 text-gray-200">हम वॉक-इन भी स्वीकार करते हैं, लेकिन अपॉइंटमेंट बुक करने से आपको वेट नहीं करना पड़ेगा।</div>
+      </div>
+      <div class="mb-4">
+        <button class="w-full text-left font-semibold text-lg bg-green-700/20 rounded-lg px-4 py-3 focus:outline-none transition" onclick="toggleFaq(1)">क्या आप कार्ड/UPI पेमेंट लेते हैं?</button>
+        <div class="faq-answer hidden px-4 py-2 text-gray-200">हाँ, हम सभी डिजिटल पेमेंट स्वीकार करते हैं।</div>
+      </div>
+      <div class="mb-4">
+        <button class="w-full text-left font-semibold text-lg bg-green-700/20 rounded-lg px-4 py-3 focus:outline-none transition" onclick="toggleFaq(2)">क्या आपके पास महिला स्टाइलिस्ट हैं?</button>
+        <div class="faq-answer hidden px-4 py-2 text-gray-200">हाँ, हमारे पास अनुभवी महिला स्टाइलिस्ट भी उपलब्ध हैं।</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Newsletter Section -->
+  <section class="section" id="contact">
+    <h2>Contact Us & Subscribe</h2>
+    <div class="flex flex-col md:flex-row justify-around items-center gap-10">
+        <div class="text-center">
+            <h3 class="text-xl font-semibold mb-3">Get in Touch</h3>
+            <p>Phone: +91-1234567890</p>
+            <p>Email: info@mybarbershop.com</p>
+            <p>Address: Main Road, Your City, India</p>
+        </div>
+        <div class="text-center">
+            <h3 class="text-xl font-semibold mb-3">Stay Updated</h3>
+            <form class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <input type="email" required placeholder="Enter your email" class="px-4 py-2 rounded-lg text-black w-64 focus:outline-none" />
+                <button type="submit" class="px-6 py-2 rounded-lg bg-green-600 text-white font-bold hover:bg-green-700 transition">Subscribe</button>
+            </form>
+        </div>
+    </div>
+  </section>
+
+  <!-- Chat Button -->
+  <button class="chat-button" title="Chat with us" id="openChatBtn"></button>
+  
+  <!-- Chatbot Modal -->
+  <div id="chatModal" style="display:none;position:fixed;bottom:90px;right:30px;z-index:3000;background:rgba(30,30,30,0.98);border-radius:14px;box-shadow:0 4px 24px #0006;width:320px;max-width:95vw;">
+    <div style="padding:16px 16px 8px 16px;border-bottom:1px solid #333;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-weight:600;color:#28a745;font-size:18px;">BarberBot</span>
+      <button id="closeChatBtn" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">&times;</button>
+    </div>
+    <div id="chatMessages" style="height:220px;overflow-y:auto;padding:12px 16px 0 16px;font-size:15px;color:#fff;"></div>
+    <form id="chatForm" style="display:flex;gap:6px;padding:10px 12px 12px 12px;">
+      <input id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" style="flex:1;padding:7px 10px;border-radius:6px;border:none;font-size:15px; color: #000;" />
+      <button type="submit" style="background:#28a745;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-weight:600;cursor:pointer;">Send</button>
+    </form>
+  </div>
+
+  <script>
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('translate-x-full');
+    });
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('translate-x-full');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('translate-x-full');
+      });
+    });
+
+    // FAQ toggle
+    function toggleFaq(idx) {
+      document.querySelectorAll('.faq-answer').forEach((el, i) => {
+        const button = el.previousElementSibling;
+        if (i === idx) {
+          el.classList.toggle('hidden');
+          button.classList.toggle('bg-green-600/40');
+        } else {
+          el.classList.add('hidden');
+          button.classList.remove('bg-green-600/40');
+        }
+      });
+    }
+
+    // Chatbot modal logic
+    const openChatBtn = document.getElementById('openChatBtn');
+    const chatModal = document.getElementById('chatModal');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    openChatBtn.addEventListener('click', () => {
+      chatModal.style.display = 'block';
+      chatInput.focus();
+    });
+    closeChatBtn.addEventListener('click', () => {
+      chatModal.style.display = 'none';
+    });
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = chatInput.value.trim();
+      if (!msg) return;
+      chatMessages.innerHTML += `<div style='margin-bottom:7px;text-align:right;'><span style='background:#28a745;color:#fff;padding:6px 12px;border-radius:12px 12px 2px 12px;display:inline-block;'>${msg}</span></div>`;
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      setTimeout(() => {
+        chatMessages.innerHTML += `<div style='margin-bottom:7px;text-align:left;'><span style='background:#444;color:#fff;padding:6px 12px;border-radius:12px 12px 12px 2px;display:inline-block;'>Sorry, I'm just a demo bot! How can I help you book an appointment?</span></div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 600);
+    });

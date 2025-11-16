@@ -1,0 +1,689 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Barber Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-image: url("A stylish barbershop.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+    }
+  /* Removed nav, nav-links, nav-symbol, search-bar custom CSS for Tailwind conversion */
+    .hero-banner {
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 2s ease-in-out;
+    }
+    .hero-banner h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    .hero-banner p {
+      font-size: 20px;
+      font-weight: 300;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section {
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 40px auto;
+      padding: 40px;
+      max-width: 1000px;
+      border-radius: 12px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+    .services {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      border-radius: 10px;
+      padding: 20px;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card span {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 10px;
+    }
+    .booking-form input,
+    .booking-form select {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .booking-form button {
+      padding: 10px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .booking-form button:hover {
+      background-color: #218838;
+    }
+    .slider-section {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 1000px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .slider {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+    .slide-track {
+      display: flex;
+      animation: scroll 20s linear infinite;
+    }
+    .slide {
+      min-width: 250px;
+      margin: 0 10px;
+    }
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+    .slide img:hover {
+      transform: scale(1.05);
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #28a745;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .chat-button::before {
+      content: "💬";
+      font-size: 24px;
+    }
+    /* Nearby shops section */
+    .nearby-shops-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+    .nearby-card {
+      background-color: rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(6px);
+      border-radius: 10px;
+      padding: 12px 10px;
+      min-width: 150px;
+      max-width: 170px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .nearby-card span {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .nearby-card img {
+      width: 90px !important;
+      height: 60px !important;
+      object-fit: cover;
+      border-radius: 6px !important;
+      margin-bottom: 6px !important;
+    }
+    .nearby-card .rating {
+      color: #28a745;
+      font-weight: bold;
+      font-size: 1em;
+    }
+    .nearby-card small {
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    .nearby-card button {
+      margin-top: 7px;
+      padding: 5px 12px;
+      border: none;
+      border-radius: 5px;
+      background: #28a745;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95em;
+      transition: background 0.2s;
+    }
+    .nearby-card button:hover {
+      background: #218838;
+    }
+    /* Shop slider modal */
+    #shopSliderModal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
+    #shopSliderModal .slider {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      margin-bottom: 18px;
+    }
+    #shopSliderModal img {
+      width: 320px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align:center;letter-spacing:8px;margin:0 0 10px 0;">CUT</h1>
+
+  <!-- Modern Apple-style Navigation Bar with Tailwind CSS -->
+  <nav class="backdrop-blur bg-black/70 w-full px-8 py-3 flex items-center justify-between fixed top-0 left-0 z-50 shadow-lg">
+    <div class="flex items-center gap-8">
+      <span class="flex items-center gap-2 text-2xl font-bold tracking-widest text-white select-none">
+        <!-- Scissors SVG logo -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" class="inline-block align-middle"><circle cx="8" cy="24" r="4" stroke="#28a745" stroke-width="2" fill="#fff"/><circle cx="24" cy="24" r="4" stroke="#28a745" stroke-width="2" fill="#fff"/><path d="M8 24 L24 4" stroke="#28a745" stroke-width="2" stroke-linecap="round"/><path d="M24 24 L8 4" stroke="#28a745" stroke-width="2" stroke-linecap="round"/></svg>
+        CUT
+      </span>
+      <div class="hidden md:flex gap-6 text-white font-semibold text-base">
+        <a href="#home" class="hover:text-green-400 transition">Home</a>
+        <a href="#services" class="hover:text-green-400 transition">Services</a>
+        <a href="#booking" class="hover:text-green-400 transition">Book Now</a>
+        <a href="#gallery" class="hover:text-green-400 transition">Gallery</a>
+        <a href="#contact" class="hover:text-green-400 transition">Contact</a>
+        <a href="login.html" class="hover:text-green-400 transition">Logout</a>
+      </div>
+    </div>
+    <form id="searchBar" class="hidden md:flex items-center gap-2 ml-6">
+      <input type="text" id="searchInput" placeholder="Search services..." class="rounded-md px-3 py-1 text-black focus:outline-none" />
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md px-4 py-1 transition">Search</button>
+    </form>
+    <button id="mobileMenuBtn" class="md:hidden text-white text-3xl focus:outline-none ml-2">&#9776;</button>
+  </nav>
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed top-0 right-0 w-2/3 max-w-xs h-full bg-black/90 z-50 flex flex-col gap-6 pt-20 px-8 text-white font-semibold text-lg transform translate-x-full transition-transform duration-300">
+    <a href="#home" class="hover:text-green-400 transition">Home</a>
+    <a href="#services" class="hover:text-green-400 transition">Services</a>
+    <a href="#booking" class="hover:text-green-400 transition">Book Now</a>
+    <a href="#gallery" class="hover:text-green-400 transition">Gallery</a>
+    <a href="#contact" class="hover:text-green-400 transition">Contact</a>
+    <a href="login.html" class="hover:text-green-400 transition">Logout</a>
+    <button id="closeMobileMenu" class="absolute top-4 right-6 text-3xl">&times;</button>
+  </div>
+
+  <header class="hero-banner" id="home">
+    <h1>Welcome to Your Premium Grooming Experience</h1>
+    <p>Style. Precision. Confidence.</p>
+  </header>
+
+  <!-- Nearby Shops & Rating Section Start -->
+  <div class="section" id="nearby-shops">
+    <h2>Nearby Barber Shops</h2>
+    <div class="slider">
+      <div class="slide-track" id="shopsList">
+        <!-- Shop slides will be rendered here by JS -->
+      </div>
+    </div>
+  </div>
+  <!-- Shop Slider Modal -->
+  <div id="shopSliderModal">
+    <div style="background:#222;padding:30px 20px 20px 20px;border-radius:14px;max-width:420px;width:95vw;position:relative;text-align:center;">
+      <button onclick="closeShopSlider()" style="position:absolute;top:10px;right:18px;font-size:24px;background:none;border:none;color:#fff;cursor:pointer;">&times;</button>
+      <h2 id="shopSliderTitle" style="color:#28a745;margin-bottom:18px;"></h2>
+      <div class="slider">
+        <div id="shopSlideTrack" style="display:flex;transition:transform 0.5s;">
+          <img id="shopImg1" src="" alt="Shop Image 1">
+          <img id="shopImg2" src="" alt="Shop Image 2">
+          <img id="shopImg3" src="" alt="Shop Image 3">
+        </div>
+      </div>
+      <button onclick="prevShopSlide()" style="margin-right:18px;padding:6px 18px;border:none;border-radius:6px;background:#28a745;color:#fff;cursor:pointer;">&#8592; Prev</button>
+      <button onclick="nextShopSlide()" style="padding:6px 18px;border:none;border-radius:6px;background:#28a745;color:#fff;cursor:pointer;">Next &#8594;</button>
+      <form class="booking-form" id="shopBookingForm" style="margin-top:20px;">
+        <input type="text" id="modalName" placeholder="Your Name" required />
+        <input type="tel" id="modalPhone" placeholder="Phone Number" required />
+        <select id="modalService" required>
+          <option value="">Select Service</option>
+          <option>Haircut</option>
+          <option>Beard Trim</option>
+          <option>Shave</option>
+          <option>Head Shave</option>
+        </select>
+        <input type="date" id="modalDate" required />
+        <input type="time" id="modalTime" required />
+        <button type="submit">Book Now</button>
+        <div id="modalBookMsg" style="margin-top:10px;color:#28a745;display:none;">Booking submitted!</div>
+      </form>
+    </div>
+  </div>
+  <!-- Nearby Shops & Rating Section End -->
+  <!-- Nearby Shops Slider Start -->
+  <div class="slider-section" id="nearby-shops-slider" style="margin-top:0;">
+    <h2 style="font-size:22px;margin-bottom:18px;">All Shops (Slider)</h2>
+    <div class="slider">
+      <div class="slide-track" id="allShopsSliderTrack">
+        <!-- Slides will be rendered by JS -->
+      </div>
+    </div>
+  </div>
+  <!-- Nearby Shops Slider End -->
+
+  <div class="section" id="services">
+    <h2>Our Services</h2>
+    <div class="services">
+      <div class="card"><span>✂️</span>Haircut </div>
+      <div class="card"><span>🧔</span>Beard Trim </div>
+      <div class="card"><span>🪒</span>Shave </div>
+      <div class="card"><span>🩷</span>Head Shave </div>
+      <div class="card"><span>🩷</span>COLOR AND STRAIGHT </div>
+    </div>
+  </div>
+  
+    <div class="section" id="booking">
+      <h2>Book an Appointment</h2>
+      <form class="booking-form">
+        <input type="text" placeholder="Your Name" required />
+        <input type="tel" placeholder="Phone Number" required />
+        <select required>
+          <option value="">Select Service</option>
+          <option>Haircut</option>
+          <option>Beard Trim</option>
+          <option>Shave</option>
+          <option>Head Shave</option>
+        </select>
+        <input type="date" required />
+        <input type="time" required />
+        <button type="submit">Book Now</button>
+      </form>
+    </div>
+  
+
+  <div class="slider-section" id="gallery">
+    <h2>Gallery</h2>
+    <div class="slider">
+      <div class="slide-track">
+        <div class="slide"><img src="2d340786ab3bb9d65dd2e3e953b898c2.jpg" alt="Haircut Style" /></div>
+        <div class="slide"><img src="50+ Best Short Hairc.png" alt="Beard Trim" /></div>
+        <div class="slide"><img src="A stylish barbershop.png" alt="Studio Interior" /></div>
+        <div class="slide"><img src="Hot Lather & Straigh.png" alt="Shave Finish" /></div>
+        <div class="slide"><img src="Top 25 Men's Hairsty.png" alt="Haircut Style" /></div>
+        <div class="slide"><img src="The Ultimate Short H.png" alt="Beard Trim" /></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="contact">
+    <h2>Contact</h2>
+    <p style="text-align:center;">
+      Phone: +91-1234567890<br>
+      Email: info@mybarbershop.com<br>
+      Address: Main Road, Your City, India
+    </p>
+  </div>
+
+  <hr id="chat-hr" style="position:fixed;right:20px;bottom:85px;width:60px;border:0;border-top:3px solid #28a745;z-index:2999;border-radius:2px;box-shadow:0 2px 8px #0004;">
+  <button class="chat-button" title="Chat with us" id="openChatBtn"></button>
+  <!-- Chatbot Modal -->
+  <div id="chatModal" style="display:none;position:fixed;bottom:90px;right:30px;z-index:3000;background:rgba(30,30,30,0.98);border-radius:14px;box-shadow:0 4px 24px #0006;width:320px;max-width:95vw;">
+    <div style="padding:16px 16px 8px 16px;border-bottom:1px solid #333;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-weight:600;color:#28a745;font-size:18px;">BarberBot</span>
+      <button id="closeChatBtn" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">&times;</button>
+    </div>
+    <div id="chatMessages" style="height:220px;overflow-y:auto;padding:12px 16px 0 16px;font-size:15px;color:#fff;"></div>
+    <form id="chatForm" style="display:flex;gap:6px;padding:10px 12px 12px 12px;">
+      <input id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" style="flex:1;padding:7px 10px;border-radius:6px;border:none;font-size:15px;" />
+      <button type="submit" style="background:#28a745;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-weight:600;cursor:pointer;">Send</button>
+    </form>
+  </div>
+
+  <script>
+    // Chatbot modal logic
+    const openChatBtn = document.getElementById('openChatBtn');
+    const chatModal = document.getElementById('chatModal');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    openChatBtn.addEventListener('click', () => {
+      chatModal.style.display = 'block';
+      chatInput.focus();
+    });
+    closeChatBtn.addEventListener('click', () => {
+      chatModal.style.display = 'none';
+    });
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = chatInput.value.trim();
+      if (!msg) return;
+      chatMessages.innerHTML += `<div style='margin-bottom:7px;text-align:right;'><span style='background:#28a745;color:#fff;padding:6px 12px;border-radius:12px 12px 2px 12px;display:inline-block;'>${msg}</span></div>`;
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      setTimeout(() => {
+        chatMessages.innerHTML += `<div style='margin-bottom:7px;text-align:left;'><span style='background:#222;color:#fff;padding:6px 12px;border-radius:12px 12px 12px 2px;display:inline-block;'>Sorry, I'm just a demo bot!</span></div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 600);
+    });
+
+    // Apple-style mobile menu logic
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+    });
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+    });
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('translate-x-full');
+        mobileMenu.classList.remove('translate-x-0');
+      });
+    });
+  // Render all shops in a horizontal slider (carousel)
+    // Shop images and reviews (moved to global scope for reuse)
+    const shopDetails = {
+      classic: {
+        img: "2d340786ab3bb9d65dd2e3e953b898c2.jpg",
+        review: "Best classic barber in town!"
+      },
+      urban: {
+        img: "50+ Best Short Hairc.png",
+        review: "Trendy styles and friendly staff."
+      },
+      royal: {
+        img: "A stylish barbershop.png",
+        review: "Luxury experience, highly recommended."
+      },
+      modern: {
+        img: "Top 25 Men's Hairsty.png",
+        review: "Great for modern styles!"
+      },
+      hotlather: {
+        img: "Hot Lather & Straigh.png",
+        review: "Best hot towel shaves!"
+      },
+      ultimate: {
+        img: "The Ultimate Short H.png",
+        review: "Sharpest fades in town."
+      },
+      stylish: {
+        img: "stylish-haircut-barbershop_926199-1957600.jpg",
+        review: "Trendy and affordable."
+      },
+      family: {
+        img: "WhatsApp Image 2025-09-05 at 12.01.43 PM.jpeg",
+        review: "Perfect for the whole family."
+      },
+      classicgents: {
+        img: "2d340786ab3bb9d65dd2e3e953b898c2.jpg",
+        review: "Old school charm."
+      },
+      barberbros: {
+        img: "A stylish barbershop.png",
+        review: "Brothers in style!"
+      },
+      shortstudio: {
+        img: "50+ Best Short Hairc.png",
+        review: "Best for short haircuts."
+      }
+    };
+
+    // Shop data array for looping
+    const shopData = [
+      { key: "classic", name: "Classic Cuts", rating: 4.7, distance: "1.2 km away" },
+      { key: "urban", name: "Urban Barber", rating: 4.5, distance: "2.0 km away" },
+      { key: "royal", name: "Royal Salon", rating: 4.9, distance: "2.5 km away" },
+      { key: "modern", name: "Modern Gents", rating: 4.3, distance: "3.1 km away" },
+      { key: "hotlather", name: "Hot Lather Barbers", rating: 4.2, distance: "1.8 km away" },
+      { key: "ultimate", name: "Ultimate Cuts", rating: 4.6, distance: "2.8 km away" },
+      { key: "stylish", name: "Stylish Haircut", rating: 4.4, distance: "3.5 km away" },
+      { key: "family", name: "Family Salon", rating: 4.1, distance: "4.0 km away" },
+      { key: "classicgents", name: "Classic Gents", rating: 4.0, distance: "2.2 km away" },
+      { key: "barberbros", name: "Barber Bros", rating: 4.8, distance: "1.5 km away" },
+      { key: "shortstudio", name: "Short Hair Studio", rating: 4.3, distance: "3.0 km away" }
+    ];
+
+    function renderShops() {
+      const shopsList = document.getElementById('shopsList');
+      if (!shopsList) return;
+      let html = '';
+      shopData.forEach(shop => {
+        const details = shopDetails[shop.key];
+        html += `
+          <div class="slide" style="min-width: 180px; max-width: 200px;">
+            <div class="nearby-card">
+              <img src="${details.img}" alt="${shop.name}">
+              <div style="font-weight:600;margin-bottom:4px;">${shop.name}</div>
+              <div class="rating">⭐ ${shop.rating}</div>
+              <small>${shop.distance}</small>
+              <button onclick="openShopSlider('${shop.key}')">View</button>
+            </div>
+          </div>
+        `;
+      });
+      shopsList.innerHTML = html + html; // Duplicate for infinite scroll
+    }
+    renderShops();
+
+    function renderAllShopsSlider() {
+      const track = document.getElementById('allShopsSliderTrack');
+      if (!track) return;
+      let html = '';
+      shopData.forEach(shop => {
+        const details = shopDetails[shop.key];
+        html += `
+          <div class="slide" style="min-width:90px;max-width:100px;margin:0 12px;display:flex;align-items:center;justify-content:center;">
+            <img src="${details.img}" alt="${shop.name}" style="width:80px;height:80px;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #0006;border:3px solid #fff;background:#eee;">
+          </div>
+        `;
+      });
+      // Repeat for infinite scroll effect
+      track.innerHTML = html + html;
+    }
+    renderAllShopsSlider();
+
+    // Hamburger menu toggle for mobile
+    const navSymbol = document.querySelector('.nav-symbol');
+    const navLinks = document.querySelector('.nav-links');
+    navSymbol.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    // Search bar function with suggestion and filter
+
+    const services = [
+      "Haircut",
+      "Beard Trim",
+      "Shave",
+      "Head Shave",
+      "Color and Straight"
+    ];
+
+    // Shop slider images data
+    const shopImages = {
+      classic: [
+        "2d340786ab3bb9d65dd2e3e953b898c2.jpg",
+        "A stylish barbershop.png",
+        "Top 25 Men's Hairsty.png"
+      ],
+      urban: [
+        "50+ Best Short Hairc.png",
+        "The Ultimate Short H.png",
+        "Hot Lather & Straigh.png"
+      ],
+      royal: [
+        "A stylish barbershop.png",
+        "2d340786ab3bb9d65dd2e3e953b898c2.jpg",
+        "50+ Best Short Hairc.png"
+      ],
+      modern: [
+        "Top 25 Men's Hairsty.png",
+        "A stylish barbershop.png",
+        "2d340786ab3bb9d65dd2e3e953b898c2.jpg"
+      ],
+      hotlather: [
+        "Hot Lather & Straigh.png",
+        "50+ Best Short Hairc.png",
+        "A stylish barbershop.png"
+      ],
+      ultimate: [
+        "The Ultimate Short H.png",
+        "Top 25 Men's Hairsty.png",
+        "Hot Lather & Straigh.png"
+      ],
+      stylish: [
+        "stylish-haircut-barbershop_926199-1957600.jpg",
+        "A stylish barbershop.png",
+        "50+ Best Short Hairc.png"
+      ],
+      family: [
+        "WhatsApp Image 2025-09-05 at 12.01.43 PM.jpeg",
+        "A stylish barbershop.png",
+        "2d340786ab3bb9d65dd2e3e953b898c2.jpg"
+      ],
+      classicgents: [
+        "2d340786ab3bb9d65dd2e3e953b898c2.jpg",
+        "Top 25 Men's Hairsty.png",
+        "A stylish barbershop.png"
+      ],
+      barberbros: [
+        "A stylish barbershop.png",
+        "50+ Best Short Hairc.png",
+        "2d340786ab3bb9d65dd2e3e953b898c2.jpg"
+      ],
+      shortstudio: [
+        "50+ Best Short Hairc.png",
+        "The Ultimate Short H.png",
+        "Hot Lather & Straigh.png"
+      ]
+    };
+    const shopTitles = {
+  classic: "Classic Cuts",
+  urban: "Urban Barber",
+  royal: "Royal Salon",
+  modern: "Modern Gents",
+  hotlather: "Hot Lather Barbers",
+  ultimate: "Ultimate Cuts",
+  stylish: "Stylish Haircut",
+  family: "Family Salon",
+  classicgents: "Classic Gents",
+  barberbros: "Barber Bros",
+  shortstudio: "Short Hair Studio"
+    };
+    let currentShop = "";
+    let currentShopSlide = 0;
+
+    function openShopSlider(shop) {
+      currentShop = shop;
+      currentShopSlide = 0;
+      document.getElementById('shopSliderTitle').innerText = shopTitles[shop];
+      updateShopSlider();
+      document.getElementById('shopSliderModal').style.display = 'flex';
+      // Reset booking form
+      document.getElementById('shopBookingForm').reset();
+      document.getElementById('modalBookMsg').style.display = 'none';
+    }
+    function closeShopSlider() {
+      document.getElementById('shopSliderModal').style.display = 'none';
+    }
+    function updateShopSlider() {
+  const imgs = shopImages[currentShop];
+  document.getElementById('shopImg1').src = imgs[(currentShopSlide) % imgs.length];
+  document.getElementById('shopImg2').src = imgs[(currentShopSlide+1) % imgs.length];
+  document.getElementById('shopImg3').src = imgs[(currentShopSlide+2) % imgs.length];
+    }
+    function prevShopSlide() {
+      const imgs = shopImages[currentShop];
+      currentShopSlide = (currentShopSlide - 1 + imgs.length) % imgs.length;
+      updateShopSlider();
+    }
+    function nextShopSlide() {
+      const imgs = shopImages[currentShop];
+      currentShopSlide = (currentShopSlide + 1) % imgs.length;
+      updateShopSlider();
+    }
+
+    // Booking form inside modal
+    document.getElementById('shopBookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('modalBookMsg').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('modalBookMsg').style.display = 'none';
+          closeShopSlider();
+        }, 1200);
+      });
+
+  </script>
+
+</body>
+</html>

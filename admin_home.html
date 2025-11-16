@@ -1,0 +1,278 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Barber Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url("how-to-become-a-software-engineer.jpg") no-repeat center center/cover;
+      color: #222;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 { margin-top: 30px; font-size: 2.5rem; }
+    .dashboard {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px 0 20px 0;
+      flex-wrap: wrap;
+    }
+    .dash-card {
+      background: linear-gradient(135deg, #fff 70%, #f8d7da 100%);
+      color: #222;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      padding: 32px 44px;
+      min-width: 220px;
+      margin: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .dash-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .dash-card h2 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      color: #dc3545;
+      letter-spacing: 1px;
+    }
+    .dash-card .value {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #007bff;
+    }
+    .dash-card .icon {
+      font-size: 38px;
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      opacity: 0.18;
+    }
+    .recent-table {
+      margin: 40px auto 0 auto;
+      background: #fff;
+      color: #222;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #0002;
+      min-width: 350px;
+      max-width: 700px;
+      overflow-x: auto;
+      font-size: 1rem;
+    }
+    .recent-table th, .recent-table td {
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .recent-table th {
+      background: #dc3545;
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .recent-table tr:last-child td {
+      border-bottom: none;
+    }
+    .alert {
+      background: linear-gradient(90deg, #ffeeba 80%, #fff3cd 100%);
+      color: #856404;
+      padding: 12px 24px;
+      border-radius: 8px;
+      margin: 24px auto 0 auto;
+      max-width: 420px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #0001;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+    .alert .bell {
+      font-size: 1.3em;
+      animation: ring 1.2s infinite;
+    }
+    @keyframes ring {
+      0% { transform: rotate(0);}
+      10% { transform: rotate(15deg);}
+      20% { transform: rotate(-10deg);}
+      30% { transform: rotate(7deg);}
+      40% { transform: rotate(-4deg);}
+      50% { transform: rotate(0);}
+      100% { transform: rotate(0);}
+    }
+    .add-btn {
+      background: #28a745;
+      color: #fff !important;
+      margin-right: 10px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .add-btn:hover { background: #218838; }
+    .search-bar {
+      margin: 30px auto 0 auto;
+      max-width: 400px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .search-bar input {
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 220px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .search-bar input:focus {
+      border: 1.5px solid #dc3545;
+    }
+    .search-bar button {
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      background: #dc3545;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .search-bar button:hover {
+      background: #b52a37;
+    }
+    .profile-link {
+      position: absolute;
+      top: 24px;
+      right: 36px;
+      background: #fff;
+      color: #dc3545;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 2px 8px #0001;
+      transition: background 0.2s, color 0.2s;
+    }
+    .profile-link:hover {
+      background: #dc3545;
+      color: #fff;
+    }
+    .actions-btn {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 0.95em;
+      margin: 0 2px;
+      transition: background 0.2s;
+    }
+    .actions-btn:hover {
+      background: #0056b3;
+    }
+    @media (max-width: 900px) {
+      .dashboard { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <a href="profile.html" class="profile-link">👤 Admin Profile</a>
+  <h1>Welcome Admin</h1>
+  <p>You can manage everything here.</p>
+
+  <div class="dashboard">
+    <div class="dash-card">
+      <span class="icon">🏪</span>
+      <h2>Total Shopkeepers</h2>
+      <div class="value" id="totalShopkeepers">5</div>
+      <div>All registered shopkeepers</div>
+    </div>
+    <div class="dash-card">
+      <span class="icon">👥</span>
+      <h2>Total Customers</h2>
+      <div class="value" id="totalCustomers">124</div>
+      <div>All registered customers</div>
+    </div>
+    <div class="dash-card">
+      <span class="icon">💳</span>
+      <h2>Total Transactions</h2>
+      <div class="value" id="totalTransactions">87</div>
+      <div>All completed transactions</div>
+    </div>
+    <div class="dash-card">
+      <span class="icon">💰</span>
+      <h2>Total Revenue</h2>
+      <div class="value" id="totalRevenue">₹25,000</div>
+      <div>All time revenue</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <span class="bell">🔔</span>
+    1 new shopkeeper registered today!
+  </div>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search user/shopkeeper..." id="searchInput">
+    <button onclick="alert('Search feature coming soon!')">Search</button>
+  </div>
+
+  <table class="recent-table">
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Date Joined</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    <tr>
+      <td>Rahul</td>
+      <td>Shopkeeper</td>
+      <td>2025-09-05</td>
+      <td>Active</td>
+      <td>
+        <button class="actions-btn" onclick="alert('Viewing Rahul')">View</button>
+        <button class="actions-btn" onclick="alert('Blocking Rahul')">Block</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Amit</td>
+      <td>Customer</td>
+      <td>2025-09-05</td>
+      <td>Active</td>
+      <td>
+        <button class="actions-btn" onclick="alert('Viewing Amit')">View</button>
+        <button class="actions-btn" onclick="alert('Blocking Amit')">Block</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Priya</td>
+      <td>Customer</td>
+      <td>2025-09-04</td>
+      <td>Inactive</td>
+      <td>
+        <button class="actions-btn" onclick="alert('Viewing Priya')">View</button>
+        <button class="actions-btn" onclick="alert('Unblocking Priya')">Unblock</button>
+      </td>
+    </tr>
+  </table>
+
+  <a href="add_shopkeeper.html" class="add-btn">+ Add Shopkeeper</a>
+  <a href="login.html">Logout</a>
+
+  <script>
+    // Example: You can add JS for search/filter, chart, etc.
+    // document.getElementById('totalRevenue').textContent = "₹25,000";
+  </script>
+</body>
+</html>
